@@ -14,8 +14,9 @@
 				<div class="form-group">
 				<label for="candidate-name">Candidate name</label>
 				<select id="candidate-name">
-					<option>Jane Doe</option>
-					<option>Louisa Placeholder</option>
+					{% for candidate in candidates %}
+					<option value={{candidate.key.urlsafe()}}>{{candidate.name}}</option>
+					{% endfor %}
 				</select>
 				</div>
 				<div class="form-group">
