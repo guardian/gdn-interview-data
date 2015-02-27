@@ -10,6 +10,32 @@
 
 			<p>Applied for {{candidate.role}}</p>
 
+			<h2>Interview progress</h2>
+
+			{% if interviews %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Interview</th>
+						<th>Interviewers</th>
+						<th>Outcome</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for interview in interviews %}
+					<tr>
+						<td>{{interview.recorded.strftime('%d/%m/%Y')}}</td>
+						<td>{{interview.interview_type}}</td>
+						<td>{% for interviewer in interview.interviewers %}{{interviewer.nickname()}} ({{interviewer.email()}})<br>{% endfor %}</td>
+						<td>{{interview.outcome}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+
 			<p>Add <a href="/interview">interview feedback</a></p>
 
 		</div>

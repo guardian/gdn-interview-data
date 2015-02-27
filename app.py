@@ -7,6 +7,7 @@ from urllib import quote, urlencode
 
 from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
+from google.appengine.api import users
 
 import models
 
@@ -45,18 +46,27 @@ class Interview(webapp2.RequestHandler):
 
 		candidate = ndb.Key(urlsafe=key).get()
 
+		user = users.get_current_user()
+
 		outcome = models.InterviewOutcome(
+			parent=candidate.key,
 			interview_type=self.request.get('interview_type'),
-			outcome=self.request.get('outcome'))
+			outcome=self.request.get('outcome'),
+			interviewers=[user],)
+
+		outcome.put()
 
 		return webapp2.redirect('/candidate/{0}'.format(candidate.key.urlsafe()))
 
 class Candidate(webapp2.RequestHandler):
 	def get(self, key):
 		template = jinja_environment.get_template('candidates/individual.html')
+
+		candidate = ndb.Key(urlsafe=key).get()
 		
 		template_values = {
-			'candidate': ndb.Key(urlsafe=key).get(),
+			'candidate': candidate,
+			'interviews': models.InterviewOutcome.query(ancestor=candidate.key),
 		}
 
 		self.response.out.write(template.render(template_values))
