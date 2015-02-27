@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate - {{candidate.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{{candidate.name}}</h1>
+
+			<p>Applied for {{candidate.role}}</p>
+
+		</div>
+	</div>
+</div>
+{% endblock %}
