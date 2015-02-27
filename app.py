@@ -66,7 +66,7 @@ class Candidate(webapp2.RequestHandler):
 		
 		template_values = {
 			'candidate': candidate,
-			'interviews': models.InterviewOutcome.query(ancestor=candidate.key),
+			'interviews': [i for i in models.InterviewOutcome.query(ancestor=candidate.key)],
 		}
 
 		self.response.out.write(template.render(template_values))
