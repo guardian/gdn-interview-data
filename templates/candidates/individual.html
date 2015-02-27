@@ -28,7 +28,7 @@
 					<tr>
 						<td>{{interview.recorded.strftime('%d/%m/%Y')}}</td>
 						<td>{{interview.interview_type}}</td>
-						<td>{% for interviewer in interview.interviewers %}{{interviewer.nickname()}} ({{interviewer.email()}})<br>{% endfor %}</td>
+						<td>{% for interviewer in interview.interviewers %}{{interviewer.email()}}<br>{% endfor %}</td>
 						<td>{{interview.outcome}}</td>
 					</tr>
 					{% endfor %}
