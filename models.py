@@ -11,4 +11,7 @@ class Candidate(ndb.Model):
 	in_progress =ndb.BooleanProperty(required=True,default=True)
 
 class InterviewOutcome(ndb.Model):
-	pass
+	interview_type = ndb.StringProperty(required=True)
+	outcome = ndb.StringProperty(required=True)
+	recorded = ndb.DateProperty(auto_now_add=True)
+	interviewer = ndb.UserProperty(repeated=True)

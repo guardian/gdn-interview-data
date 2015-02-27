@@ -45,7 +45,9 @@ class Interview(webapp2.RequestHandler):
 
 		candidate = ndb.Key(urlsafe=key).get()
 
-		outcome = models.InterviewOutcome()
+		outcome = models.InterviewOutcome(
+			interview_type=self.request.get('interview_type'),
+			outcome=self.request.get('outcome'))
 
 		return webapp2.redirect('/candidate/{0}'.format(candidate.key.urlsafe()))
 
