@@ -10,3 +10,5 @@ class Candidate(ndb.Model):
 	role = ndb.StringProperty(required=True)
 	in_progress =ndb.BooleanProperty(required=True,default=True)
 
+class InterviewOutcome(ndb.Model):
+	pass

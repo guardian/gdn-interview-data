@@ -13,7 +13,7 @@
 			<form method="POST">
 				<div class="form-group">
 				<label for="candidate-name">Candidate name</label>
-				<select id="candidate-name">
+				<select id="candidate-name" name="candidate">
 					{% for candidate in candidates %}
 					<option value={{candidate.key.urlsafe()}}>{{candidate.name}}</option>
 					{% endfor %}

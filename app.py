@@ -39,6 +39,16 @@ class Interview(webapp2.RequestHandler):
 
 		self.response.out.write(template.render(template_values))
 
+	def post(self):
+
+		key = self.request.get('candidate')
+
+		candidate = ndb.Key(urlsafe=key).get()
+
+		outcome = models.InterviewOutcome()
+
+		return webapp2.redirect('/candidate/{0}'.format(candidate.key.urlsafe()))
+
 class Candidate(webapp2.RequestHandler):
 	def get(self, key):
 		template = jinja_environment.get_template('candidates/individual.html')
