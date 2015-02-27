@@ -8,3 +8,5 @@ class Configuration(ndb.Model):
 class Candidate(ndb.Model):
 	name = ndb.StringProperty(required=True)
 	role = ndb.StringProperty(required=True)
+	in_progress =ndb.BooleanProperty(required=True,default=True)
+
