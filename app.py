@@ -96,6 +96,13 @@ class AllCandidates(webapp2.RequestHandler):
 
 		self.response.out.write(template.render(template_values))
 
+class Interviewer(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('interviewers/new.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/', handler=MainPage),
@@ -104,4 +111,5 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r'/candidate/new', handler=NewCandidate),
 	webapp2.Route(r'/candidate/<key>', handler=Candidate),
 	webapp2.Route(r'/candidates', handler=AllCandidates),
+	webapp2.Route(r'/interviewer', handler=Interviewer),
 	], debug=True)

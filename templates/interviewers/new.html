@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a candidate{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Add an interviewer</h1>
+
+			<p>Add some interviewer details</p>
+
+			<form method="POST">
+				<div class="form-group">
+				<label for="name">Interviewer's name</label>
+				<input type="text" id="name" name="name" class="form-control" required>
+				</div>
+
+				<button>Add</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

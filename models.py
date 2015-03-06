@@ -15,3 +15,6 @@ class InterviewOutcome(ndb.Model):
 	outcome = ndb.StringProperty(required=True)
 	recorded = ndb.DateProperty(auto_now_add=True)
 	interviewers = ndb.UserProperty(repeated=True)
+
+class Interviewer(ndb.Model):
+	name = ndb.StringProperty(required=True)
