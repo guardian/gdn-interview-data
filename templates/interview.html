@@ -13,24 +13,35 @@
 			<form method="POST">
 				<div class="form-group">
 				<label for="candidate-name">Candidate name</label>
-				<select id="candidate-name" name="candidate">
+				<select id="candidate-name" name="candidate" class="form-control">
 					{% for candidate in candidates %}
 					<option value={{candidate.key.urlsafe()}}>{{candidate.name}}</option>
 					{% endfor %}
 				</select>
 				</div>
+
 				<div class="form-group">
 				<label for="interview-type">Kind of interview</label>
-				<select id="interview-type" name="interview_type">
+				<select id="interview-type" name="interview_type" class="form-control">
 					<option>Phone screen</option>
 					<option>Remote</option>
 					<option>Pairing</option>
 					<option>Face to face</option>
 				</select>
 				</div>
+
+				<div class="form-group">
+				<label for="interviewers">Interviewers</label>
+				<select id="interviewers" name="interviewers" class="form-control" multiple="true">
+					{% for interviewer in interviewers %}
+					<option>{{interviewer.name}}</option>
+					{% endfor %}
+				</select>
+				</div>
+
 				<div class="form-group">
 				<label for="interview-type">Outcome</label>
-				<select id="interview-type" name="outcome">
+				<select id="interview-type" name="outcome" class="form-control">
 					<option>Proceed</option>
 					<option>Reject</option>
 				</select>

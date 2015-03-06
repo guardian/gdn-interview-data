@@ -35,7 +35,8 @@ class Interview(webapp2.RequestHandler):
 		template = jinja_environment.get_template('interview.html')
 		
 		template_values = {
-			'candidates' : models.Candidate.query(),
+			'candidates' : models.Candidate.query(models.Candidate.in_progress == True),
+			'interviewers' : models.Interviewer.query(),
 		}
 
 		self.response.out.write(template.render(template_values))
