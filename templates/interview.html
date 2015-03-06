@@ -34,7 +34,7 @@
 				<label for="interviewers">Interviewers</label>
 				<select id="interviewers" name="interviewers" class="form-control" multiple="true">
 					{% for interviewer in interviewers %}
-					<option>{{interviewer.name}}</option>
+					<option value="{{interviewer.key.urlsafe()}}">{{interviewer.name}}</option>
 					{% endfor %}
 				</select>
 				</div>

@@ -49,11 +49,15 @@ class Interview(webapp2.RequestHandler):
 
 		user = users.get_current_user()
 
+		interviewers = self.request.POST.getall('interviewers')
+		logging.info(interviewers)
+
 		outcome = models.InterviewOutcome(
 			parent=candidate.key,
 			interview_type=self.request.get('interview_type'),
 			outcome=self.request.get('outcome'),
-			interviewers=[user],)
+			interviewers=[ndb.Key(urlsafe=k) for k in interviewers]
+			)
 
 		outcome.put()
 
@@ -65,9 +69,13 @@ class Candidate(webapp2.RequestHandler):
 
 		candidate = ndb.Key(urlsafe=key).get()
 		
+		def hydrate(outcome):
+			outcome.interviewer_details = [k.get() for k in outcome.interviewers]
+			return outcome
+
 		template_values = {
 			'candidate': candidate,
-			'interviews': [i for i in models.InterviewOutcome.query(ancestor=candidate.key)],
+			'interviews': [hydrate(i) for i in models.InterviewOutcome.query(ancestor=candidate.key)],
 		}
 
 		self.response.out.write(template.render(template_values))
