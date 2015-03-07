@@ -11,6 +11,7 @@ from google.appengine.api import users
 
 import models
 import handlers
+import interview
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
@@ -43,7 +44,7 @@ class Interview(webapp2.RequestHandler):
 		user = users.get_current_user()
 
 		interviewers = self.request.POST.getall('interviewers')
-		logging.info(interviewers)
+		#logging.info(interviewers)
 
 		outcome = models.InterviewOutcome(
 			parent=candidate.key,
@@ -51,6 +52,11 @@ class Interview(webapp2.RequestHandler):
 			outcome=self.request.get('outcome'),
 			interviewers=[ndb.Key(urlsafe=k) for k in interviewers]
 			)
+
+		logging.info(outcome.outcome)
+		if outcome.outcome in interview.process.final_statuses:
+			candidate.in_progress = False
+			candidate.put()
 
 		outcome.put()
 
