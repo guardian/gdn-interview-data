@@ -10,17 +10,10 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 
 import models
+import handlers
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
-
-class MainPage(webapp2.RequestHandler):
-	def get(self):
-		template = jinja_environment.get_template('index.html')
-		
-		template_values = {}
-
-		self.response.out.write(template.render(template_values))
 
 class Dashboard(webapp2.RequestHandler):
 	def get(self):
@@ -132,7 +125,7 @@ class Interviewers(webapp2.RequestHandler):
 		self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/', handler=MainPage),
+	webapp2.Route(r'/', handler=handlers.MainPage),
 	webapp2.Route(r'/dashboard', handler=Dashboard),
 	webapp2.Route(r'/interview', handler=Interview),
 	webapp2.Route(r'/candidate/new', handler=NewCandidate),
