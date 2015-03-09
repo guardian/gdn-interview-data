@@ -10,7 +10,7 @@
 
 			<ul>
 				{% for candidate in candidates %}
-				<li>{{candidate.name}}</li>
+				<li><a href="/candidate/{{candidate.key.urlsafe()}}">{{candidate.name}}</a></li>
 				{% endfor %}
 			</ul>
 		</div>

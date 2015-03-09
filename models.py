@@ -10,6 +10,7 @@ class Interviewer(ndb.Model):
 class Candidate(ndb.Model):
 	name = ndb.StringProperty(required=True)
 	role = ndb.StringProperty(required=True)
+	gender = ndb.StringProperty()
 	in_progress =ndb.BooleanProperty(required=True, default=True)
 
 class InterviewOutcome(ndb.Model):

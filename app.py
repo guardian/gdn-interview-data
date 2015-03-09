@@ -89,8 +89,10 @@ class NewCandidate(webapp2.RequestHandler):
 
 	def post(self):
 
-		candidate = models.Candidate(name=self.request.get('name'),
-			role=self.request.get('role'))
+		candidate = models.Candidate(
+			name=self.request.get('name'),
+			role=self.request.get('role'),
+			gender=self.request.get('gender'))
 
 		candidate.put()
 
