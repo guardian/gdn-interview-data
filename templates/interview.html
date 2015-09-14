@@ -32,7 +32,7 @@
 
 				<div class="form-group">
 				<label for="interviewers">Interviewers</label>
-				<select id="interviewers" name="interviewers" class="form-control" multiple="true">
+				<select id="interviewers" name="interviewers" class="form-control" multiple="true" required>
 					{% for interviewer in interviewers %}
 					<option value="{{interviewer.key.urlsafe()}}">{{interviewer.name}}</option>
 					{% endfor %}

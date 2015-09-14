@@ -13,7 +13,9 @@ handlers:
   secure: always
 - url: /
   script: app.app
+  secure: always
 - url: /.*
+  secure: always
   login: required
   script: app.app
 
