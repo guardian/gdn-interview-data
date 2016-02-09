@@ -132,6 +132,17 @@ class Interviewers(webapp2.RequestHandler):
 
 		self.response.out.write(template.render(template_values))
 
+class Outcome(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('outcomes/offer.html')
+
+		template_values = {
+			'candidates': models.Candidate.query(models.Candidate.in_progress == True),
+		}
+
+		self.response.out.write(template.render(template_values))
+
+
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/', handler=handlers.MainPage),
 	webapp2.Route(r'/dashboard', handler=Dashboard),
@@ -141,4 +152,5 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r'/candidates', handler=AllCandidates),
 	webapp2.Route(r'/interviewer', handler=Interviewer),
 	webapp2.Route(r'/interviewers', handler=Interviewers),
+	webapp2.Route(r'/outcome', handler=Outcome),
 	], debug=True)

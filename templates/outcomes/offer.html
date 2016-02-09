@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Offer{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Offer</h1>
+
+			<p>Record the outcomes of an offer made to a candidate</p>
+
+			<form method="POST">
+				<div class="form-group">
+				<label for="candidate-name">Candidate name</label>
+				<select id="candidate-name" name="candidate" class="form-control">
+					{% for candidate in candidates %}
+					<option value={{candidate.key.urlsafe()}}>{{candidate.name}}</option>
+					{% endfor %}
+				</select>
+				</div>
+
+				<div class="form-group">
+				<label for="outcome-type">Interview outcome</label>
+				<select id="outcome-type" name="outcome_type" class="form-control">
+					<option>Declined</option>
+					<option>Offer made</option>
+					<option>Offer accepted</option>
+					<option>Offer rejected</option>
+				</select>
+				</div>
+
+
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="complete"> Process complete?
+					</label>
+				</div>
+
+				<div class="form-group">
+				<button>Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
