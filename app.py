@@ -12,6 +12,7 @@ from google.appengine.api import users
 import models
 import handlers
 import interview
+import data
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
@@ -103,7 +104,7 @@ class AllCandidates(webapp2.RequestHandler):
 		template = jinja_environment.get_template('candidates/all.html')
 		
 		template_values = {
-			'candidates': models.Candidate.query(models.Candidate.in_progress == True),
+			'candidates': queries.candidates_in_progress(),
 		}
 
 		self.response.out.write(template.render(template_values))
@@ -138,6 +139,7 @@ class Outcome(webapp2.RequestHandler):
 
 		template_values = {
 			'candidates': models.Candidate.query(models.Candidate.in_progress == True),
+			'outcomes': data.outcomes,
 		}
 
 		self.response.out.write(template.render(template_values))
