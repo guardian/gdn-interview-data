@@ -38,6 +38,25 @@ class Interviewer(webapp2.RequestHandler):
 
 		return webapp2.redirect('/interviewers')
 
+class NewCandidate(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('candidates/add.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
+
+	def post(self):
+
+		candidate = models.Candidate(
+			name=self.request.get('name'),
+			role=self.request.get('role'),
+			gender=self.request.get('gender'))
+
+		candidate.put()
+
+		return webapp2.redirect('/candidate/{0}'.format(candidate.key.urlsafe()))
+
 class Outcome(webapp2.RequestHandler):
 	def get(self):
 		template = jinja_environment.get_template('outcomes/offer.html')
