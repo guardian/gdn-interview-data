@@ -9,6 +9,8 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
+import data
+import queries
 import models
 
 jinja_environment = jinja2.Environment(
@@ -19,5 +21,30 @@ class MainPage(webapp2.RequestHandler):
 		template = jinja_environment.get_template('index.html')
 		
 		template_values = {}
+
+		self.response.out.write(template.render(template_values))
+
+class Interviewer(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('interviewers/new.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
+
+	def post(self):
+
+		models.Interviewer(name=self.request.get("name")).put()
+
+		return webapp2.redirect('/interviewers')
+
+class Outcome(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('outcomes/offer.html')
+
+		template_values = {
+			'candidates': models.Candidate.query(models.Candidate.in_progress == True),
+			'outcomes': data.outcomes,
+		}
 
 		self.response.out.write(template.render(template_values))

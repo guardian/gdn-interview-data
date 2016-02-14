@@ -109,37 +109,12 @@ class AllCandidates(webapp2.RequestHandler):
 
 		self.response.out.write(template.render(template_values))
 
-class Interviewer(webapp2.RequestHandler):
-	def get(self):
-		template = jinja_environment.get_template('interviewers/new.html')
-		
-		template_values = {}
-
-		self.response.out.write(template.render(template_values))
-
-	def post(self):
-
-		models.Interviewer(name=self.request.get("name")).put()
-
-		return webapp2.redirect('/interviewers')
-
 class Interviewers(webapp2.RequestHandler):
 	def get(self):
 		template = jinja_environment.get_template('interviewers/list.html')
 		
 		template_values = {
 			'interviewers': models.Interviewer.query(),
-		}
-
-		self.response.out.write(template.render(template_values))
-
-class Outcome(webapp2.RequestHandler):
-	def get(self):
-		template = jinja_environment.get_template('outcomes/offer.html')
-
-		template_values = {
-			'candidates': models.Candidate.query(models.Candidate.in_progress == True),
-			'outcomes': data.outcomes,
 		}
 
 		self.response.out.write(template.render(template_values))
@@ -152,7 +127,7 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r'/candidate/new', handler=NewCandidate),
 	webapp2.Route(r'/candidate/<key>', handler=Candidate),
 	webapp2.Route(r'/candidates', handler=AllCandidates),
-	webapp2.Route(r'/interviewer', handler=Interviewer),
+	webapp2.Route(r'/interviewer', handler=handlers.Interviewer),
 	webapp2.Route(r'/interviewers', handler=Interviewers),
-	webapp2.Route(r'/outcome', handler=Outcome),
+	webapp2.Route(r'/outcome', handler=handlers.Outcome),
 	], debug=True)
