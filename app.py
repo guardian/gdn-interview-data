@@ -13,6 +13,7 @@ import models
 import handlers
 import interview
 import data
+import queries
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
@@ -114,7 +115,7 @@ class Interviewers(webapp2.RequestHandler):
 		template = jinja_environment.get_template('interviewers/list.html')
 		
 		template_values = {
-			'interviewers': models.Interviewer.query(),
+			'interviewers': queries.all_interviewers(),
 		}
 
 		self.response.out.write(template.render(template_values))
