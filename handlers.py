@@ -12,6 +12,7 @@ from google.appengine.api import users
 import data
 import queries
 import models
+import forms
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
@@ -67,3 +68,11 @@ class Outcome(webapp2.RequestHandler):
 		}
 
 		self.response.out.write(template.render(template_values))
+
+	def post(self):
+		form = forms.OutcomeForm(self.request.POST)
+
+		if form.validate():
+			candidate = ndb.Key(urlsafe=form.candidate_key.data).get()
+
+			return webapp2.redirect('/candidate/{0}'.format(candidate.key.urlsafe()))
