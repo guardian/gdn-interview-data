@@ -25,3 +25,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Third party libraries
+lib
+
+# Virtual environments
+.ve
+ve
